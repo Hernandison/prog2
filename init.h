@@ -4,7 +4,7 @@
 #include <string.h>
 using namespace std;
 
-void novoadm() {
+bool novoadm() {
     printf("Novo adm..\n");
     bool validadeCpf = true;
     string senha;
@@ -38,11 +38,46 @@ void novoadm() {
             validadeCpf = false;
         }
     } while (validadeCpf != true);
-    
+    return validadeCpf;
 }
 
-void loginadm() {
+bool loginadm() {
+
+    ifstream admData;
+    string cpf,senha,cpfA,senhaA;
+    bool login = true;
+
     printf("Fazendo o login: \n");
+    do{
+        limpatela();
+        if(login == false)
+            cout << "\tTem alguma coisa errada aí, irmão.\n\n";
+
+        cout << "Informe o CPF do administrador: ";
+        cin >> cpf;
+        cout << "Informe a senha: ";
+        cin >> senha;
+
+        admData.open("admData.txt");
+        if(admData.is_open()) {
+            getline(admData,cpfA);
+            getline(admData,senhaA);
+
+            if(cpf != cpfA || senha != senhaA) {
+                login = false;
+                cout << "Errou feio, patrão.\n\n";
+            }else {
+                login = true;
+                cout << "Esse é meu garoto!!";
+            }
+            
+        }else
+        {
+            cout << "Não foi possivel encontrar o usuario.";
+        }
+    }while(login == false);
+    return login;
+    
 }
 
 bool init() {
@@ -56,7 +91,7 @@ bool init() {
         novoadm();
     }else {
         fclose(admData);
-        loginadm();
+        status = loginadm();
     }
 
     return status;

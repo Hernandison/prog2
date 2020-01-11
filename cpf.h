@@ -64,6 +64,10 @@ bool verificarCpf(char cpf[10]) {
     }
     //FIM DA SEGUNDA CAMADA DE VERIFICAÇAO
 
+    if(strlen(cpf) != 11)
+        verificador = false;
+
+    //FIM DA TERCEIRA VERIFICAÇAO
 
     return verificador;
     

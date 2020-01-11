@@ -1,17 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <locale.h>
 #include <iostream>
+#include <string.h>
 using namespace std;
 
-#include "init.cc"
+#include "portabilidade.h"
+#include "cpf.h"
+#include "init.h"
 
 int main() {
 
-    if(!init()==false){
-        printf("Ocorreu um erro na inicializacao do programa!!\n");
-        system("pause");
-        return 0;
-    }  
+    init();    
 
     return 0;
 }
+

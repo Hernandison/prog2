@@ -11,3 +11,13 @@ void limpatela() {
         system("cls");
     #endif
 }
+
+void SubstituirArquivoMedicamento() {
+    #ifdef __linux__
+        system("rm medicamentos.txt");
+        system("mv medicamentosc.txt medicamentos.txt");
+    #else
+        system("del medicamentos.txt");
+        system("RENAME medicamentosc.txt medicamentos.txt");
+    #endif
+}

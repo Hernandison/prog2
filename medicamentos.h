@@ -156,7 +156,7 @@ void removermedicamento() {
         cin >> cod;
 
         listaMedicamentos.open("medicamentos.txt",ios::in);
-        listaMedicamentosCopia.open("medicamentosc.txt",ios::out);
+        listaMedicamentosCopia.open("medicamentosc.txt",ios::trunc);
         
         while(getline(listaMedicamentos,medicamento)){
             i = medicamento.length();
@@ -170,33 +170,30 @@ void removermedicamento() {
 
             i+=1;
 
-            while (i <= medicamento.length())
+            while (i < medicamento.length())
             {
                 medicamentoSaida += medicamento[i];
                 contadorSaida++;
                 i++;
             }
-            cout << medicamentoSaida << endl;
-            cout << cod;
-            medicamentoSaida = "";
-            contadorSaida = 0;
-            cout << endl;
+
             
-            if(cod == medicamentoSaida) {
+            contadorSaida = 0;
+
+
+            
+            if(cod != medicamentoSaida) {
                 listaMedicamentosCopia << medicamento << endl;
             }
-            listaMedicamentosCopia.close();
-            //CONTINUAAA AQUIIIIIIIIIIIIIIIII
+            
+            
+            medicamentoSaida = "";
         }
 
         
-        
-        if(listaMedicamentos.is_open()){
-            
-        }else{
-            cout << "Estamos com problemas para listar os medicamentos";
-        }
+        listaMedicamentosCopia.close();
         listaMedicamentos.close();
+        SubstituirArquivoMedicamento();
 
         break;
     default:

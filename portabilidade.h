@@ -4,10 +4,10 @@
 }*/
 
 void limpatela() {
-    #ifdef WINDOWS
-        system("cls");
+    #ifdef __linux__
+        system("clear");
 
     #else
-        system("clear");
+        system("cls");
     #endif
 }

@@ -21,3 +21,13 @@ void SubstituirArquivoMedicamento() {
         system("RENAME medicamentosc.txt medicamentos.txt");
     #endif
 }
+
+void SubstituirArquivoCliente() {
+    #ifdef __linux__
+        system("rm clientes.txt");
+        system("mv clientesc.txt clientes.txt");
+    #else
+        system("del clientes.txt");
+        system("RENAME clientesc.txt clientes.txt");
+    #endif
+}

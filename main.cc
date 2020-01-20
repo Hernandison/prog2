@@ -5,6 +5,7 @@ using namespace std;
 
 #include "portabilidade.h"
 #include "medicamentos.h"
+#include "clientes.h"
 #include "cpf.h"
 #include "init.h"
 #include "interface.h"

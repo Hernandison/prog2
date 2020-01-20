@@ -194,6 +194,9 @@ void removermedicamento() {
         listaMedicamentosCopia.close();
         listaMedicamentos.close();
         SubstituirArquivoMedicamento();
+        cout << "Medicamento removido com sucesso.\n Pressione enter para continuar...";
+        getchar();
+        getchar();
 
         break;
     default:

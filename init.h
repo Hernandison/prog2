@@ -5,7 +5,6 @@
 using namespace std;
 
 bool novoadm() {
-    printf("Novo adm..\n");
     bool validadeCpf = true;
     string senha;
     string cpfs;
@@ -15,7 +14,7 @@ bool novoadm() {
         if(!validadeCpf)
             cout << "Informe um CPF válido.\n\n";
          
-        cout << "Insira o seu CPF. Apenas os números: ";
+        cout << "\tInsira o seu CPF. Apenas os números: ";
         cin >> cpfs;
     
         int n = cpfs.length(); 
@@ -26,7 +25,7 @@ bool novoadm() {
 
         if(verificarCpf(cpf)) {
             validadeCpf = true;
-            cout << "Insira sua senha: ";
+            cout << "\tInsira sua senha: ";
             cin >> senha;
 
             ofstream admData;
@@ -47,15 +46,14 @@ bool loginadm() {
     string cpf,senha,cpfA,senhaA;
     bool login = true;
 
-    printf("Fazendo o login: \n");
     do{
         limpatela();
         if(login == false)
-            cout << "\tTem alguma coisa errada aí, irmão.\n\n";
+            cout << "Nossos minions não encontraram você nas nossas planilhas, tente novamente.\n\n";
 
-        cout << "Informe o CPF do administrador: ";
+        cout << "\tInforme o CPF do administrador: ";
         cin >> cpf;
-        cout << "Informe a senha: ";
+        cout << "\tInforme a senha: ";
         cin >> senha;
 
         admData.open("admData.txt");
@@ -65,15 +63,14 @@ bool loginadm() {
 
             if(cpf != cpfA || senha != senhaA) {
                 login = false;
-                cout << "Errou feio, patrão.\n\n";
+                cout << "Os dados de loginn não correspondem com o cadastro, tente novamente.\n\n";
             }else {
                 login = true;
-                cout << "Esse é meu garoto!!";
             }
             
         }else
         {
-            cout << "Não foi possivel encontrar o usuario.";
+            cout << "Nossos minions não encontraram você nas nossas planilhas, tente novamente.";
         }
     }while(login == false);
     return login;

@@ -12,6 +12,7 @@ struct Remedio
     string nome;
     string laboratorio;
     string codBarras;
+    string quantidade;
 };
 
 using namespace std;
@@ -19,47 +20,32 @@ using namespace std;
 void listarmedicamentos(int acao) {
     limpatela();
     ifstream arqMedicamentos;
-    string medicamento,separador="!";
-    int tamanho,i;
-    string letra;
-    int tag = 1;
+    string medicamento;
 
     arqMedicamentos.open("medicamentos.txt");
     if(arqMedicamentos.is_open()){
         
-        while (getline(arqMedicamentos,medicamento))
+        Remedio remedioSaida;
+
+        do
         {
-            if(tag == 1){
-                cout << "Nome: ";
-                tag++;
-            }
+            remedioSaida.nome = "";
+            remedioSaida.laboratorio = "";
+            remedioSaida.codBarras = "";
+            remedioSaida.quantidade = "";
+            getline(arqMedicamentos,remedioSaida.nome);
+            getline(arqMedicamentos,remedioSaida.laboratorio);
+            getline(arqMedicamentos,remedioSaida.quantidade);
+            getline(arqMedicamentos,remedioSaida.codBarras);
 
-            while(medicamento[i]){
-                
-                //cout << medicamento[i];
-                letra = medicamento[i];
-                
-                if(letra=="!"){
-                    cout<<"\n";
-
-                    if(tag == 2){
-                        cout << "Laboratório: ";
-                        tag++;
-                    }
-                    else if(tag == 3){
-                        cout << "Código de barras: ";
-                        tag++;
-                    }
-                    
-                }else{
-                    cout << letra;
-                }
-                i++;
-            }
-            cout << "\n\n";
-            i=0;
-            tag = 1;
+            if(remedioSaida.nome != ""){
+                cout << "Nome: " << remedioSaida.nome << "\n"
+                    << "Laboratório: " << remedioSaida.laboratorio << "\n"
+                    << "Código de barras: " << remedioSaida.codBarras << "\n"
+                    << "Quantidade: " << remedioSaida.quantidade << "\n\n";
         }
+        
+        } while (remedioSaida.nome != "");
         
 
     }else{
@@ -86,6 +72,9 @@ void cadastrarmedicamento() {
     cout << "Informe o laboratório:  (não adicione espaços):";
     cin >> remedio.laboratorio;
 
+    cout << "Informe a quantidade:  (não adicione espaços):";
+    cin >> remedio.quantidade;
+
     cout << "Informe o código de barras:  (não adicione espaços):";
     cin >> remedio.codBarras;
 
@@ -96,7 +85,10 @@ void cadastrarmedicamento() {
          << "\n\tLaboratório: "
          << remedio.laboratorio
          << "\n\tCodigo de barras: "
-         << remedio.codBarras << endl;
+         << remedio.codBarras 
+         << "\n\tQuantidade: "
+         << remedio.quantidade
+         << endl;
     
     cout << "\n\n\t1 - sim" << endl << "\t2 - não" << endl << "Opção: ";
 
@@ -109,8 +101,9 @@ void cadastrarmedicamento() {
             
             medicamentos.open("medicamentos.txt",ios::app);
 
-            medicamentos << remedio.nome << "!" 
-                         << remedio.laboratorio << "!" 
+            medicamentos << remedio.nome << "\n" 
+                         << remedio.laboratorio << "\n" 
+                         << remedio.quantidade << "\n"
                          << remedio.codBarras 
                          << "\n";
 
@@ -135,6 +128,7 @@ void removermedicamento() {
     string cod, codDoc, medicamento, medicamentoSaida;
     ifstream listaMedicamentos;
     ofstream listaMedicamentosCopia;
+    Remedio remedioSaida;
 
     string letra;
 
@@ -145,8 +139,8 @@ void removermedicamento() {
          << "\nOpção: ";
     
     cin >> opc;
-    switch (opc)
-    {
+
+    switch(opc){
     case 2:
         listarmedicamentos(0);
         cout << "\n\n";
@@ -157,46 +151,40 @@ void removermedicamento() {
 
         listaMedicamentos.open("medicamentos.txt",ios::in);
         listaMedicamentosCopia.open("medicamentosc.txt",ios::trunc);
+
+        while (remedioSaida.nome != ""){
+            remedioSaida.nome = "";
+            remedioSaida.laboratorio = "";
+            remedioSaida.codBarras = "";
+            remedioSaida.quantidade = "";
+            getline(listaMedicamentos,remedioSaida.nome);
+            getline(listaMedicamentos,remedioSaida.laboratorio);
+            getline(listaMedicamentos,remedioSaida.quantidade);
+            getline(listaMedicamentos,remedioSaida.codBarras);
+
+            
+
+            if(remedioSaida.codBarras != cod){
+                listaMedicamentosCopia 
+                    << remedioSaida.nome << "\n"
+                    << remedioSaida.laboratorio << "\n"
+                    << remedioSaida.quantidade << "\n"
+                    << remedioSaida.codBarras << "\n";
+            }
+            cout << remedioSaida.nome;
         
-        while(getline(listaMedicamentos,medicamento)){
-            i = medicamento.length();
-            do
-            {
-                letra = medicamento[i];
-                if(letra == "!")
-                break;
-                i--;
-            } while (medicamento[i]);
-
-            i+=1;
-
-            while (i < medicamento.length())
-            {
-                medicamentoSaida += medicamento[i];
-                contadorSaida++;
-                i++;
-            }
-
-            
-            contadorSaida = 0;
-
-
-            
-            if(cod != medicamentoSaida) {
-                listaMedicamentosCopia << medicamento << endl;
-            }
-            
-            
-            medicamentoSaida = "";
         }
-
         
         listaMedicamentosCopia.close();
         listaMedicamentos.close();
         SubstituirArquivoMedicamento();
+        cout << "Medicamento removido com sucesso.\n Pressione enter para continuar...";
+        getchar();
+        getchar();
 
         break;
     default:
+        cout << "Saindo...";
         break;
     }
 }

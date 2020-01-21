@@ -3,9 +3,10 @@
 #include <string.h>
 using namespace std;
 
+#include "cpf.h"
 #include "portabilidade.h"
 #include "medicamentos.h"
-#include "cpf.h"
+#include "cliente.h"
 #include "init.h"
 #include "interface.h"
 

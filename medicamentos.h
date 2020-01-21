@@ -151,7 +151,7 @@ void removermedicamento() {
 
         listaMedicamentos.open("medicamentos.txt",ios::in);
         listaMedicamentosCopia.open("medicamentosc.txt",ios::trunc);
-
+        remedioSaida.nome = "a";
         while (remedioSaida.nome != ""){
             remedioSaida.nome = "";
             remedioSaida.laboratorio = "";

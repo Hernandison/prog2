@@ -164,8 +164,8 @@ void removercliente() {
         cin >> cod;
 
         listaClientes.open("clientes.txt",ios::in);
-        listaClientesCopia.open("clientes.txt",ios::trunc);
-
+        listaClientesCopia.open("clientesc.txt",ios::trunc);
+        clienteSaida.nome = "a";
         while (clienteSaida.nome != ""){
             clienteSaida.nome = "";
             clienteSaida.idade = "";
